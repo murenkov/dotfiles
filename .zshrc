@@ -58,6 +58,12 @@ alias df='df -h'                                                # Human-readable
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
 alias ll='ls -lh --color=always'
+alias xcopy='xclip -selection clipboard'
+alias xpaste='xclip -selection clipboard -o'
+alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+alias ..="cd .."
+alias gc="git commit -m $1"
+alias weather="curl wttr.in/$1"
 
 # Theming section  
 autoload -U compinit colors zcalc
@@ -195,3 +201,9 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
   		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
     ;;
 esac
+
+PATH="/home/murenkov/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/murenkov/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/murenkov/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/murenkov/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/murenkov/perl5"; export PERL_MM_OPT;
