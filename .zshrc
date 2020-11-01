@@ -53,7 +53,7 @@ bindkey '^H' backward-kill-word                                 # delete previou
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
 ## Alias section 
-alias cp="cp -i"                                                # Confirm before overwriting something
+alias cp='cp -i'                                                # Confirm before overwriting something
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
@@ -61,9 +61,12 @@ alias ll='ls -lh --color=always'
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -o'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
-alias ..="cd .."
-alias gc="git commit -m $1"
-alias weather="curl wttr.in/$1"
+alias ..='cd ..'
+alias gs='git status'
+alias gc='git commit -m $1'
+alias gundo='git reset --soft HEAD^'
+alias weather='curl wttr.in/$1'
+alias waveform='item=$1; iverilog -o $item *.v @(echo testbench/"$item"_testbench.v); vvp $item; gtkwave @(echo $item.vcd)'
 
 # Theming section  
 autoload -U compinit colors zcalc
