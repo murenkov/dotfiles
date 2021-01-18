@@ -66,7 +66,8 @@ alias gs='git status'
 alias gc='git commit -m $1'
 alias gundo='git reset --soft HEAD^'
 alias weather='curl wttr.in/$1'
-alias waveform='item=$1; iverilog -o $item *.v @(echo testbench/"$item"_testbench.v); vvp $item; gtkwave @(echo $item.vcd)'
+alias svg2pdf='function _(){item=$(echo $1 | cut -f 1 -d '.'); inkscape "$item.svg" --export-area-drawing --batch-process --export-type=pdf --export-filename="$item.pdf"}; _'
+alias pdf2svg='function _(){item=$(echo $1 | cut -f 1 -d '.'); inkscape "$item.pdf" --export-area-drawing --batch-process --without-gui --export-type=svg --export-filename="$item.svg"}; _'
 
 # Theming section  
 autoload -U compinit colors zcalc
