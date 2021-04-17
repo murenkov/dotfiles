@@ -12,7 +12,7 @@ setopt autocd                                                   # if only direct
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+zstyle ':completion:*' rehash true                              # automatically find new executables in path
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
@@ -52,12 +52,12 @@ bindkey '^[[1;5C' forward-word                                  #
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
-## Alias section 
+## Alias section
 alias cp='cp -i'                                                # Confirm before overwriting something
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
-alias ll='ls -lh --color=always'
+alias ll='exa --long'
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -o'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
@@ -68,8 +68,13 @@ alias gundo='git reset --soft HEAD^'
 alias weather='curl wttr.in/$1'
 alias svg2pdf='function _(){item=$(echo $1 | cut -f 1 -d '.'); inkscape "$item.svg" --export-area-drawing --batch-process --export-type=pdf --export-filename="$item.pdf"}; _'
 alias pdf2svg='function _(){item=$(echo $1 | cut -f 1 -d '.'); inkscape "$item.pdf" --export-area-drawing --batch-process --without-gui --export-type=svg --export-filename="$item.svg"}; _'
+alias newsboat='newsboat -r'
+alias webm2mp4='function _(){name=$(echo "$1" | cut -f 1 -d "."); ffmpeg -fflags +genpts -i "${name}.webm" -r 24 "${name}.mp4"}; _'
+alias update_all_projects='for item in $(exa --only-dirs); do cd "./$item/"; pwd; git pull; ..; done'
+alias getvideo='youtube-dl -f "bestvideo[height<=1080]+bestaudio/best" $1'
 
-# Theming section  
+
+# Theming section
 autoload -U compinit colors zcalc
 compinit -d
 colors
@@ -136,16 +141,16 @@ parse_git_state() {
 
 git_prompt_string() {
   local git_where="$(parse_git_branch)"
-  
+
   # If inside a Git repository, print its branch and state
   [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
-  
+
   # If not inside the Git repo, print exit codes of last command (only if it failed)
   [ ! -n "$git_where" ] && echo "%{$fg[red]%} %(?..[%?])"
 }
 
 # Right prompt with exit status of previous command if not successful
- #RPROMPT="%{$fg[red]%} %(?..[%?])" 
+ #RPROMPT="%{$fg[red]%} %(?..[%?])"
 # Right prompt with exit status of previous command marked with ✓ or ✗
  #RPROMPT="%(?.%{$fg[green]%}✓ %{$reset_color%}.%{$fg[red]%}✗ %{$reset_color%})"
 
@@ -170,20 +175,20 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
+bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Apply different settigns for different terminals
 case $(basename "$(cat "/proc/$PPID/comm")") in
   login)
-    	RPROMPT="%{$fg[red]%} %(?..[%?])" 
+    	RPROMPT="%{$fg[red]%} %(?..[%?])"
     	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
     ;;
 #  'tmux: server')
 #        RPROMPT='$(git_prompt_string)'
 #		## Base16 Shell color themes.
 #		#possible themes: 3024, apathy, ashes, atelierdune, atelierforest, atelierhearth,
-#		#atelierseaside, bespin, brewer, chalk, codeschool, colors, default, eighties, 
+#		#atelierseaside, bespin, brewer, chalk, codeschool, colors, default, eighties,
 #		#embers, flat, google, grayscale, greenscreen, harmonic16, isotope, londontube,
 #		#marrakesh, mocha, monokai, ocean, paraiso, pop (dark only), railscasts, shapesifter,
 #		#solarized, summerfruit, tomorrow, twilight
